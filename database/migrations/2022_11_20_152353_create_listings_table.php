@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('title');
+            $table->string('slug');
+            $table->string('company');
+            $table->string('location');
+            $table->string('logo')->nullable();
+            $table->boolean('is_highlighted')->default(false);
+            $table->boolean('is_active')->default(true);
+            $table->text('content');
+            $table->string('apply_link');
             $table->timestamps();
         });
     }

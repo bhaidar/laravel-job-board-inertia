@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('clicks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('listing_id');
+            $table->text('user_agent')->nullable();
+            $table->string('ip')->nullable();
             $table->timestamps();
         });
     }

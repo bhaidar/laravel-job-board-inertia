@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('listing_tag', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('listing_id');
+            $table->unsignedBigInteger('tag_id');
         });
     }
 
