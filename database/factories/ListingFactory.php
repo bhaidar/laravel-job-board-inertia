@@ -17,24 +17,25 @@ class ListingFactory extends Factory
      */
     public function definition()
     {
-        $title = $this->faker->sentence(rand(5, 7));
-        $datetime = $this->faker->dateTimeBetween('-1 month', 'now');
+        $title = fake()->sentence(rand(5, 7));
+        $datetime = fake()->dateTimeBetween('-1 month', 'now');
 
         $content = '';
         for ($i = 0; $i < 5; $i++) {
-            $content .= '<p class="mb-4">'.$this->faker->sentences(rand(5, 10), true).'</p>';
+            $content .= '<p class="mb-4">'.fake()->sentences(rand(5, 10), true).'</p>';
         }
 
         return [
             'title' => $title,
             'slug' => Str::slug($title).'-'.rand(1111, 9999),
-            'company' => $this->faker->company,
-            'location' => $this->faker->country,
-            'logo' => basename($this->faker->image(storage_path('app/public'))),
+            'company' => fake()->company(),
+            'location' => fake()->country(),
+            //'logo' => basename($this->faker->image(storage_path('app/public'))),
+            'logo' => fake()->imageUrl(),
             'is_highlighted' => (rand(1, 9) > 7),
             'is_active' => true,
             'content' => $content,
-            'apply_link' => $this->faker->url,
+            'apply_link' => fake()->url(),
             'created_at' => $datetime,
             'updated_at' => $datetime,
         ];

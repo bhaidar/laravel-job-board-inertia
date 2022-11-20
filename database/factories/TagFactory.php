@@ -17,7 +17,7 @@ class TagFactory extends Factory
      */
     public function definition()
     {
-        $name = ucwords($this->faker->word);
+        $name = ucwords(fake()->word());
 
         return [
             'name' => $name,
