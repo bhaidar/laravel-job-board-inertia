@@ -14,6 +14,7 @@ class ListingController extends Controller
         $listings = Listing::query()
             ->active()
             ->with('tags')
+            ->filter(Request::only('search', 'tag'))
             ->latest()
             ->get();
 
@@ -22,9 +23,9 @@ class ListingController extends Controller
             ->get();
 
         return Inertia::render('Listings/Index', [
-            'filters' => Request::all('tag'),
-            'listings' => $listings,
             // Return any query strings
+            'filters' => Request::all('tag', 'search'),
+            'listings' => $listings,
             'tags' => $tags,
         ]);
     }

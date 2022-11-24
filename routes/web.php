@@ -18,6 +18,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [ListingController::class, 'index'])->name('listings.index');
+Route::get('/{listing}', [ListingController::class, 'index'])->name('listings.show');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
