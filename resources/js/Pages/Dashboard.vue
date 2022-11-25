@@ -1,26 +1,69 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import { computed } from 'vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import { Head, Link } from '@inertiajs/inertia-vue3';
+
+const props = defineProps({
+    listings: Object,
+});
+
+const listingsCount = computed(() => props.listings?.length);
+
 </script>
 
 <template>
+
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        You're logged in!
+    <AppLayout>
+        <section class="text-gray-600 body-font overflow-hidden">
+            <div class="container px-5 py-12 mx-auto">
+                <div class="mb-12 flex items-center">
+                    <h2
+                        class="text-2xl font-medium text-gray-900 title-font px-4">
+                        Your listings ({{ listingsCount }})
+                    </h2>
+                    <Link method="post" :href="route('logout')">Sign Out</Link>
+                </div>
+                <div class="-my-6">
+                    <Link v-for="listing in listings" :key="listing.slug"
+                        :href="route('listings.show', [listing.slug])"
+                        class="py-6 px-4 flex flex-wrap md:flex-nowrap border-b border-gray-100"
+                        :class="[listing.is_highlighted ? 'bg-yellow-100 hover:bg-yellow-200' : 'bg-white hover:bg-gray-100']">
+                    <div
+                        class="md:w-16 md:mb-0 mb-6 mr-4 flex-shrink-0 flex flex-col">
+                        <img :src="`/storage/${listing.logo}`"
+                            :alt="`${listing.company} logo`"
+                            class="w-16 h-16 rounded-full object-cover">
                     </div>
+                    <div
+                        class="md:w-1/2 mr-8 flex flex-col items-start justify-center">
+                        <h2
+                            class="text-xl font-bold text-gray-900 title-font mb-1">
+                            {{ listing.title }}</h2>
+                        <p class="leading-relaxed text-gray-900">{{
+                                listing.company
+                        }} &mdash; <span class="text-gray-600">{{
+        listing.location
+}}</span></p>
+                    </div>
+                    <div
+                        class="md:flex-grow mr-8 mt-2 flex items-center justify-start">
+                        <span v-for="tag in listing.tags" :key="tag.slug"
+                            class="inline-block mr-2 tracking-wide text-indigo-500 text-xs font-medium title-font py-0.5 px-1.5 border border-indigo-500">
+                            {{ tag.name?.toLowerCase() }}
+                        </span>
+                    </div>
+                    <span
+                        class="md:flex-grow flex flex-col items-end justify-center">
+                        <span>{{ listing.created_at }}</span>
+                        <span><strong class="text-bold">{{ listing.clicks_count
+                        }}</strong>
+                            Apply Button Clicks</span>
+                    </span>
+                    </Link>
                 </div>
             </div>
-        </div>
-    </AuthenticatedLayout>
+        </section>
+    </AppLayout>
 </template>

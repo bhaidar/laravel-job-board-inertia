@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import { Head } from '@inertiajs/inertia-vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
 import Hero from '@/Components/Hero.vue';
 import pickBy from 'lodash/pickBy';
 
@@ -27,7 +27,7 @@ const onTagClick = function (tag) {
 <template>
 
     <Head title="Listings" />
-    <GuestLayout>
+    <AppLayout>
         <Hero />
         <section class="container px-5 py-12 mx-auto">
             <div class="mb-12">
@@ -50,7 +50,7 @@ const onTagClick = function (tag) {
                     :class="[listing.is_highlighted ? 'bg-yellow-100 hover:bg-yellow-200' : 'bg-white hover:bg-gray-100']">
                     <div
                         class="mb-6 mr-4 flex-shrink-0 flex flex-col md:w-16 md:mb-0">
-                        <img :src="listing.logo"
+                        <img :src="`/storage/${listing.logo}`"
                             :alt="`${listing.company} logo`"
                             class="w-16 h-16 rounded-full object-cover">
                     </div>
@@ -77,6 +77,5 @@ const onTagClick = function (tag) {
                 </a>
             </div>
         </section>
-
-    </GuestLayout>
+    </AppLayout>
 </template>

@@ -16,7 +16,6 @@ const onSearch = throttle(() => {
 
 <template>
     <section class="text-gray-600 body-font border-b border-gray-100">
-        {{ Math.random() }}
         <div
             class="container mx-auto flex flex-col px-5 pt-16 pb-8 justify-center items-center">
             <div class="w-full md:w-2/3 flex flex-col items-center text-center">
